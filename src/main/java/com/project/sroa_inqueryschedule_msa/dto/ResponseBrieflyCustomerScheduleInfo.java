@@ -4,12 +4,12 @@ import lombok.Getter;
 
 @Getter
 public class ResponseBrieflyCustomerScheduleInfo {
-    Long scheduleNum;
-    String productName;
-    String date;
-    String content;
+    private Long scheduleNum;
+    private String productName;
+    private String date;
+    private String content;
     //true : 수리, false : 반납
-    Integer flag;
+    private Integer flag;
 
     public ResponseBrieflyCustomerScheduleInfo(Long scheduleNum, String productName, String date, String content, Integer b) {
         this.scheduleNum=scheduleNum;

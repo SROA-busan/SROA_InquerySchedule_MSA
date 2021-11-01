@@ -6,9 +6,9 @@ import java.util.List;
 
 @Getter
 public class ResponseLoginEngineer {
-    String centerName;
-    Integer avgScore;
-    List<EngineerBrieflySchedule> list;
+    private String centerName;
+    private Integer avgScore;
+    private List<EngineerBrieflySchedule> list;
 
     public ResponseLoginEngineer(String centerName, Integer avgScore, List<EngineerBrieflySchedule> list) {
         this.centerName = centerName;

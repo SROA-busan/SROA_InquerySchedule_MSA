@@ -15,6 +15,7 @@ import java.util.List;
 @Controller
 @ResponseBody
 public class CustomerInqueryController {
+    // status : 0-> 예약완료 , 1 -> 처리 완료, 2 -> 수령, 3 -> 수리 완료, 4 -> 반납예약완료, 5-> 평가 완료
     CustomerInqueryService customerInqueryService;
 
     @Autowired

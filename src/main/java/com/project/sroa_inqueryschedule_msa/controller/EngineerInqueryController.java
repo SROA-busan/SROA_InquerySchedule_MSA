@@ -31,7 +31,6 @@ public class EngineerInqueryController {
     //엔지니어 정보,당일 일정을 간략히 출력,
     // 클릭시 일정조회 자세히 준비를 위한 데이터
     // 요청 파라미터 : 아이디
-    // 제품의 문제사항은 null로 넘김
     @GetMapping("/schedule/Engineer/MainPage/{id}")
     public ResponseLoginEngineer EngineeerMainPage(@PathVariable("id") String id){
         UserInfo userInfo= engineerInqueryService.findEngineerName(id);

@@ -84,7 +84,9 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService{
         else
             date = schedule.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        return new ResponseDetailCustomerScheduleInfo(product.getClassifyName(), product.getProblem(),
+        return new ResponseDetailCustomerScheduleInfo(
+                scheduleNum,
+                product.getClassifyName(), product.getProblem(),
                 date, schedule.getAddress(), engineerInfo.getServiceCenter().getCenterName(), engineerInfo.getUserInfo().getName(),
                 engineerInfo.getUserInfo().getPhoneNum(), schedule.getStatus());
     }

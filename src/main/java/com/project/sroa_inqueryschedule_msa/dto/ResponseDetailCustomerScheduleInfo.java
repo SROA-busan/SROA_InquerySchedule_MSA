@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ResponseDetailCustomerScheduleInfo {
+    private Long scheduleNum;
     private String productName;
     private String content;
     private String date;
@@ -13,8 +14,9 @@ public class ResponseDetailCustomerScheduleInfo {
     private String engineerPhoneNum;
     private Integer status;
 
-    public ResponseDetailCustomerScheduleInfo(String productName, String content, String date, String customerAddress, String centerName,
+    public ResponseDetailCustomerScheduleInfo(Long scheduleNum, String productName, String content, String date, String customerAddress, String centerName,
                                               String engineerName, String engineerPhoneNum, Integer status) {
+        this.scheduleNum=scheduleNum;
         this.productName = productName;
         this.content = content;
         this.date = date;

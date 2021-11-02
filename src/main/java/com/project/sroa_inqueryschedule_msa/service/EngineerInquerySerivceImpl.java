@@ -50,11 +50,8 @@ public class EngineerInquerySerivceImpl implements EngineerInqueryService {
             res.add(new EngineerBrieflySchedule(
                     schedule.getScheduleNum(),
                     schedule.getStartDate().toString().substring(11, 16),
-                    schedule.getAddress(),
-                    schedule.getPhoneNum().toString(),
                     schedule.getProduct().getClassifyName(),
-                    schedule.getStatus(),
-                    schedule.getProduct().getProblem()
+                    schedule.getStatus()
             ));
         }
 
@@ -63,14 +60,16 @@ public class EngineerInquerySerivceImpl implements EngineerInqueryService {
             res.add(new EngineerBrieflySchedule(
                     schedule.getScheduleNum(),
                     schedule.getEndDate().toString().substring(11, 16),
-                    schedule.getAddress(),
-                    schedule.getPhoneNum().toString(),
                     schedule.getProduct().getClassifyName(),
-                    schedule.getStatus(),
-                    schedule.getProduct().getProblem()
+                    schedule.getStatus()
             ));
         }
         return res;
+    }
+
+    @Override
+    public Schedule findScheduleByScheduleNum(Long scheduleNum) {
+        return scheduleRepository.findByScheduleNum(scheduleNum);
     }
 
     //시작일 기준 일정 찾기

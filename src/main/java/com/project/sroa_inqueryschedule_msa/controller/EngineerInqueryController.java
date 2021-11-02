@@ -1,9 +1,6 @@
 package com.project.sroa_inqueryschedule_msa.controller;
 
-import com.project.sroa_inqueryschedule_msa.dto.EngineerBrieflySchedule;
-import com.project.sroa_inqueryschedule_msa.dto.ResponseLoginEngineer;
-import com.project.sroa_inqueryschedule_msa.dto.ResponseWorkCntOfMonthEngineer;
-import com.project.sroa_inqueryschedule_msa.dto.ResponseWorkOfDateEngineer;
+import com.project.sroa_inqueryschedule_msa.dto.*;
 import com.project.sroa_inqueryschedule_msa.model.EngineerInfo;
 import com.project.sroa_inqueryschedule_msa.model.Schedule;
 import com.project.sroa_inqueryschedule_msa.model.UserInfo;
@@ -34,6 +31,7 @@ public class EngineerInqueryController {
     //엔지니어 정보,당일 일정을 간략히 출력,
     // 클릭시 일정조회 자세히 준비를 위한 데이터
     // 요청 파라미터 : 아이디
+    // 제품의 문제사항은 null로 넘김
     @GetMapping("/schedule/Engineer/MainPage/{id}")
     public ResponseLoginEngineer EngineeerMainPage(@PathVariable("id") String id){
         UserInfo userInfo= engineerInqueryService.findEngineerName(id);
@@ -46,6 +44,27 @@ public class EngineerInqueryController {
         String centerName= engineer.getServiceCenter().getCenterName();
 
         return new ResponseLoginEngineer(centerName, avgScore, list);
+    }
+    // 하나의 일정에 대해 상세 조회
+    @GetMapping("/schedule/Engineer/SelectOneSchedule/{scheduleNum}")
+    public EngineerDetailSchedule SelectOneSchedule(@PathVariable("scheduleNum") Long scheduleNum){
+        Schedule schedule = engineerInqueryService.findScheduleByScheduleNum(scheduleNum);
+
+        String endTime= new String();
+        if(schedule.getEndDate()==null){
+            endTime=null;
+        }
+        else
+            endTime=schedule.getEndDate().toString().substring(0,16);
+
+        return new EngineerDetailSchedule(scheduleNum,
+                schedule.getStartDate().toString().substring(0,16),
+                endTime,
+                schedule.getAddress(),
+                schedule.getPhoneNum(),
+                schedule.getProduct().getClassifyName(),
+                schedule.getStatus(),
+                schedule.getProduct().getProblem());
     }
 
 

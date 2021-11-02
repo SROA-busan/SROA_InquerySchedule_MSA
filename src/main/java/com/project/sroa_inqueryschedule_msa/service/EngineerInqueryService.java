@@ -24,4 +24,6 @@ public interface EngineerInqueryService {
     Map<String, Integer> findScheduleCntOfEachDay(Map<String, Object> scheduleOfMonthByStartDate, Map<String, Object> scheduleOfMonthByEndDate);
 
     List<Schedule> findScheduleOfWarehousingProject(Long engineerNum);
+
+    Schedule findScheduleByScheduleNum(Long scheduleNum);
 }

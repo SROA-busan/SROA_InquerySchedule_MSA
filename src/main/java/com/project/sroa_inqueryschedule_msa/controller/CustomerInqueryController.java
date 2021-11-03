@@ -2,6 +2,8 @@ package com.project.sroa_inqueryschedule_msa.controller;
 
 import com.project.sroa_inqueryschedule_msa.dto.ResponseBrieflyCustomerScheduleInfo;
 import com.project.sroa_inqueryschedule_msa.dto.ResponseDetailCustomerScheduleInfo;
+import com.project.sroa_inqueryschedule_msa.dto.ResponseReservationPage;
+import com.project.sroa_inqueryschedule_msa.model.UserInfo;
 import com.project.sroa_inqueryschedule_msa.service.CustomerInqueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,4 +51,11 @@ public class CustomerInqueryController {
     public ResponseDetailCustomerScheduleInfo requestDetailSchedule(@PathVariable("scheduleNum") Long scheduleNum){
         return customerInqueryService.findUserScheduleDetail(scheduleNum);
     }
+
+    @GetMapping("/schedule/customer/requestReservationPage/{id}")
+    public ResponseReservationPage requestReservationPage(@PathVariable("id") String id){
+        UserInfo user= customerInqueryService.findUserInfo(id);
+        return new ResponseReservationPage(user.getName(), user.getAddress(), user.getPhoneNum());
+    }
+
 }

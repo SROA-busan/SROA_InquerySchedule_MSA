@@ -5,9 +5,11 @@ import com.project.sroa_inqueryschedule_msa.dto.ResponseDetailCustomerScheduleIn
 import com.project.sroa_inqueryschedule_msa.model.EngineerInfo;
 import com.project.sroa_inqueryschedule_msa.model.Product;
 import com.project.sroa_inqueryschedule_msa.model.Schedule;
+import com.project.sroa_inqueryschedule_msa.model.UserInfo;
 import com.project.sroa_inqueryschedule_msa.repository.EngineerInfoRepository;
 import com.project.sroa_inqueryschedule_msa.repository.ProductRepository;
 import com.project.sroa_inqueryschedule_msa.repository.ScheduleRepository;
+import com.project.sroa_inqueryschedule_msa.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +22,22 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService{
     ScheduleRepository scheduleRepository;
     ProductRepository productRepository;
     EngineerInfoRepository engineerInfoRepository;
+    UserInfoRepository userInfoRepository;
 
     @Autowired
     public CustomerInqueryServiceImpl(ScheduleRepository scheduleRepository,
                                       ProductRepository productRepository,
-                                      EngineerInfoRepository engineerInfoRepository){
+                                      EngineerInfoRepository engineerInfoRepository,
+                                      UserInfoRepository userInfoRepository){
         this.scheduleRepository=scheduleRepository;
         this.productRepository=productRepository;
         this.engineerInfoRepository=engineerInfoRepository;
+        this.userInfoRepository=userInfoRepository;
+    }
+
+    @Override
+    public UserInfo findUserInfo(String id) {
+        return userInfoRepository.findById(id);
     }
 
     @Override
@@ -84,7 +94,9 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService{
         else
             date = schedule.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        return new ResponseDetailCustomerScheduleInfo(product.getClassifyName(), product.getProblem(),
+        return new ResponseDetailCustomerScheduleInfo(
+                scheduleNum,
+                product.getClassifyName(), product.getProblem(),
                 date, schedule.getAddress(), engineerInfo.getServiceCenter().getCenterName(), engineerInfo.getUserInfo().getName(),
                 engineerInfo.getUserInfo().getPhoneNum(), schedule.getStatus());
     }

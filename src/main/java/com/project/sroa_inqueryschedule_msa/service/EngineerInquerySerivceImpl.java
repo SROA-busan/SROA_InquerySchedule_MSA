@@ -103,7 +103,7 @@ public class EngineerInquerySerivceImpl implements EngineerInqueryService {
             map.put(schedule.getEndDate().toString(), schedule);
 
             if (schedule.getStartDate().getMonth().toString() != month.substring(5, 7)) continue;
-            map.put(schedule.getStartDate().toString(),schedule);
+            map.put(schedule.getStartDate().toString(), schedule);
         }
         return map;
     }

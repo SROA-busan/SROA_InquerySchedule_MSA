@@ -47,7 +47,6 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService {
 
         for (Schedule schedule : Schedules) {
             String str = schedule.getStartDate().toString().substring(0, 10);
-            if (schedule.getStatus() != 0 && !(schedule.getStatus() == 3 && schedule.getEndDate() == null)) continue;
             if (!res.contains(str))
                 res.add(str);
         }
@@ -55,7 +54,6 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService {
         Schedules = scheduleRepository.findAllEndDateByUserIdAndDate(id, date);
         for (Schedule schedule : Schedules) {
             String str = schedule.getStartDate().toString().substring(0, 10);
-            if (schedule.getStatus() != 0 && !(schedule.getStatus() == 3 && schedule.getEndDate() == null)) continue;
             if (!res.contains(str))
                 res.add(str);
         }
@@ -67,14 +65,12 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService {
         List<ResponseBrieflyCustomerScheduleInfo> res = new ArrayList<>();
         List<Schedule> Schedules = scheduleRepository.findAllStartDateByUserIdAndDate(id, date);
         for (Schedule schedule : Schedules) {
-            if (schedule.getStatus() != 0 && !(schedule.getStatus() == 3 && schedule.getEndDate() == null)) continue;
             Product product = productRepository.findByScheduleNum(schedule.getScheduleNum());
             res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(), product.getClassifyName(), schedule.getStartDate().toString().substring(0, 16), product.getClassifyName(), schedule.getStatus()));
         }
 
         Schedules = scheduleRepository.findAllEndDateByUserIdAndDate(id, date);
         for (Schedule schedule : Schedules) {
-            if (schedule.getStatus() != 0 && !(schedule.getStatus() == 3 && schedule.getEndDate() == null)) continue;
             Product product = productRepository.findByScheduleNum(schedule.getScheduleNum());
             res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(), product.getClassifyName(), schedule.getStartDate().toString().substring(0, 16), product.getClassifyName(), schedule.getStatus()));
         }
@@ -86,18 +82,20 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService {
         Product product = productRepository.findByScheduleNum(scheduleNum);
         Schedule schedule = scheduleRepository.findByScheduleNum(scheduleNum);
         EngineerInfo engineerInfo = engineerInfoRepository.findByEngineerNum(schedule.getEngineerInfo().getEngineerNum());
-        String date = new String();
-        if (schedule.getStatus() == 0)
-            date = schedule.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String endDate = new String();
+
+        String startDate = schedule.getStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 
-        else
-            date = schedule.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+        if(schedule.getStatus()==1||schedule.getStatus()==4||schedule.getStatus()==5)
+            endDate = schedule.getEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        else{
+            endDate="-";
+        }
         return new ResponseDetailCustomerScheduleInfo(
                 scheduleNum,
                 product.getClassifyName(), product.getProblem(),
-                date, schedule.getAddress(), engineerInfo.getServiceCenter().getCenterName(), engineerInfo.getUserInfo().getName(),
+                startDate, endDate, schedule.getAddress(), engineerInfo.getServiceCenter().getCenterName(), engineerInfo.getUserInfo().getName(),
                 engineerInfo.getUserInfo().getPhoneNum(), schedule.getStatus());
     }
 }

@@ -95,7 +95,7 @@ public class EngineerInqueryController {
 
         List<ResponseWorkOfDateEngineer> res = new ArrayList<>();
         Map<String, Object> scheduleOfDateByStartDate = engineerInqueryService.findScheduleAtDateByStartDate(engineer.getEngineerNum(), date);
-        Map<String, Object> scheduleOfDateByEndDate = engineerInqueryService.findScheduleAtDateByStartDate(engineer.getEngineerNum(), date);
+        Map<String, Object> scheduleOfDateByEndDate = engineerInqueryService.findScheduleAtDateByEndDate(engineer.getEngineerNum(), date);
 
         for(String key : scheduleOfDateByStartDate.keySet() ){
             Schedule schedule= (Schedule) scheduleOfDateByStartDate.get(key);

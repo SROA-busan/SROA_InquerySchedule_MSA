@@ -28,10 +28,10 @@ public class CustomerInqueryController {
     //고객이 로그인 성공시, 메인페이지 이동시 이번달 일정에 대해 요청
     // 예약 완료 상태, 반납 예약 완료 상태인 일정만 리턴
     // date = yyyy-mm
-    @GetMapping("/schedule/customer/MainPage/{id}")
-    public List<String> CustomerMainPage(@PathVariable("id") String id){
+    @GetMapping("/schedule/customer/MainPage/{id}/{date}")
+    public List<String> CustomerMainPage(@PathVariable("id") String id,
+                                         @PathVariable("date") String date){
         System.out.println("메인페이지 접속");
-        String date= LocalDateTime.now().toString().substring(0,7);
 
         return customerInqueryService.findUserScheduleMonth(id, date);
     }

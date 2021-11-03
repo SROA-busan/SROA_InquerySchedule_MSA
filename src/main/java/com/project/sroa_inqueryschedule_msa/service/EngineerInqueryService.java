@@ -17,7 +17,6 @@ public interface EngineerInqueryService {
 
     List<EngineerBrieflySchedule> findEngineerSchedulesDate(Long engineerNum, String today);
 
-    
 
     Map<String, Object> findScheduleAtDateByEndDate(Long engineerNum, String month);
 

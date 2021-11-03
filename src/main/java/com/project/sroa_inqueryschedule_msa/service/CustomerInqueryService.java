@@ -9,8 +9,6 @@ import java.util.List;
 public interface CustomerInqueryService {
 
 
-
-
     UserInfo findUserInfo(String id);
 
     List<String> findUserScheduleMonth(String id, String date);

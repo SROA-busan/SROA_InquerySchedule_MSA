@@ -61,18 +61,89 @@ public class CustomerInqueryServiceImpl implements CustomerInqueryService {
     }
 
     @Override
+    public List<ResponseBrieflyCustomerScheduleInfo> findCurrentScheduleByState(Long userNum) {
+        List<ResponseBrieflyCustomerScheduleInfo> res = new ArrayList<>();
+        List<Schedule> Schedules = scheduleRepository.findAllCurrentByUserNumAndStates(userNum);
+
+
+        System.out.println(Schedules.size());
+        for(Schedule schedule:Schedules){
+            Product product = productRepository.findByScheduleNum(schedule.getScheduleNum());
+            String endDate=new String();
+            if(schedule.getEndDate()==null){
+                endDate="-";
+            }
+            else{
+                endDate=schedule.getEndDate().toString().substring(0,16).replace("T", " ");
+            }
+            res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(),
+                    product.getClassifyName(),
+                    schedule.getStartDate().toString().substring(0,16).replace("T", " "),
+                    endDate,
+                    product.getClassifyName(), schedule.getStatus()));
+        }
+        return res;
+    }
+
+    @Override
+    public List<ResponseBrieflyCustomerScheduleInfo> findLastScheduleByState(Long userNum) {
+        List<ResponseBrieflyCustomerScheduleInfo> res = new ArrayList<>();
+        List<Schedule> Schedules = scheduleRepository.findAllLastByUserNumAndStates(userNum);
+
+
+        System.out.println(Schedules.size());
+        for(Schedule schedule:Schedules){
+            Product product = productRepository.findByScheduleNum(schedule.getScheduleNum());
+            String endDate=new String();
+            if(schedule.getEndDate()==null){
+                endDate="-";
+            }
+            else{
+                endDate=schedule.getEndDate().toString().substring(0,16).replace("T", " ");
+            }
+
+            res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(),
+                    product.getClassifyName(),
+                    schedule.getStartDate().toString().substring(0,16).replace("T", " "),
+                    endDate,
+                    product.getClassifyName(), schedule.getStatus()));
+        }
+        return res;
+    }
+
+    @Override
     public List<ResponseBrieflyCustomerScheduleInfo> findUserScheduleBriefly(String id, String date) {
         List<ResponseBrieflyCustomerScheduleInfo> res = new ArrayList<>();
         List<Schedule> Schedules = scheduleRepository.findAllStartDateByUserIdAndDate(id, date);
         for (Schedule schedule : Schedules) {
             Product product = productRepository.findByScheduleNum(schedule.getScheduleNum());
-            res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(), product.getClassifyName(), schedule.getStartDate().toString().substring(0, 16), product.getClassifyName(), schedule.getStatus()));
+            String endDate=new String();
+            if(schedule.getEndDate()==null){
+                endDate="-";
+            }
+            else{
+                endDate=schedule.getEndDate().toString().substring(0,16).replace("T", " ");
+            }
+            res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(), product.getClassifyName(),
+                    schedule.getStartDate().toString().substring(0, 16).replace("T", " "),
+                    endDate,
+                    product.getClassifyName(), schedule.getStatus()));
         }
 
         Schedules = scheduleRepository.findAllEndDateByUserIdAndDate(id, date);
         for (Schedule schedule : Schedules) {
+            String endDate=new String();
+            if(schedule.getEndDate()==null){
+                endDate="-";
+            }
+            else{
+                endDate=schedule.getEndDate().toString().substring(0,16).replace("T", " ");
+            }
             Product product = productRepository.findByScheduleNum(schedule.getScheduleNum());
-            res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(), product.getClassifyName(), schedule.getStartDate().toString().substring(0, 16), product.getClassifyName(), schedule.getStatus()));
+            res.add(new ResponseBrieflyCustomerScheduleInfo(schedule.getScheduleNum(), product.getClassifyName(),
+                    schedule.getStartDate().toString().substring(0, 16).replace("T", " "),
+                    endDate,
+                    product.getClassifyName(), schedule.getStatus()));
         }
         return res;
     }

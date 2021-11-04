@@ -16,4 +16,9 @@ public interface CustomerInqueryService {
     List<ResponseBrieflyCustomerScheduleInfo> findUserScheduleBriefly(String id, String date);
 
     ResponseDetailCustomerScheduleInfo findUserScheduleDetail(Long scheduleNum);
+
+
+    List<ResponseBrieflyCustomerScheduleInfo> findCurrentScheduleByState(Long userNum);
+
+    List<ResponseBrieflyCustomerScheduleInfo> findLastScheduleByState(Long userNum);
 }

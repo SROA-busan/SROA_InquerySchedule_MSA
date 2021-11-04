@@ -1,10 +1,12 @@
 package com.project.sroa_inqueryschedule_msa.repository;
 
+import com.project.sroa_inqueryschedule_msa.dto.ResponseBrieflyCustomerScheduleInfo;
 import com.project.sroa_inqueryschedule_msa.model.EngineerInfo;
 import com.project.sroa_inqueryschedule_msa.model.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
@@ -35,4 +37,10 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     // 현재 창고에 있는 물품 -> 입고, 수리완료, 반납예약완료
     @Query(nativeQuery = true, value = "SELECT s.* FROM schedule s WHERE s.status IN(2,3,4) AND s.engineer_num =?1")
     List<Schedule> findAllWarehousingSchedule(Long engineerNum);
+
+    @Query(nativeQuery = true, value = "SELECT s.* FROM schedule s WHERE s.status IN(0,2,3,4) AND s.user_num =?1")
+    List<Schedule> findAllCurrentByUserNumAndStates(Long userNum);
+
+    @Query(nativeQuery = true, value = "SELECT s.* FROM schedule s WHERE s.status IN(1, 5) AND s.user_num =?1")
+    List<Schedule> findAllLastByUserNumAndStates(Long userNum);
 }

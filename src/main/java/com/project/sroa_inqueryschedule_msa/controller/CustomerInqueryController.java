@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -44,6 +47,25 @@ public class CustomerInqueryController {
         System.out.println(date+"날짜의 일정");
         return customerInqueryService.findUserScheduleBriefly(id, date);
     }
+
+    // 고객 어플 수리현황 클릭 -> 현재 처리 완료되지않은 일정 간략히 출력
+    @GetMapping("/schedule/customer/requestCurrentRepair/{id}")
+    public List<ResponseBrieflyCustomerScheduleInfo> requestCurrentRepair(@PathVariable("id") String id){
+        UserInfo user=customerInqueryService.findUserInfo(id);
+
+
+        return customerInqueryService.findCurrentScheduleByState(user.getUserNum());
+    }
+
+    // 고객 어플 지난수리현황 클릭 -> 처리 완료된 일정 간략히 출력
+    @GetMapping("/schedule/customer/requestLastRepair/{id}")
+    public List<ResponseBrieflyCustomerScheduleInfo> requestLastRepair(@PathVariable("id") String id){
+        UserInfo user=customerInqueryService.findUserInfo(id);
+
+        return customerInqueryService.findLastScheduleByState(user.getUserNum());
+    }
+
+
 
     // 고객 하나의 일정에 대해 정보 요청
     // 제품 상태가 0 예약, 3 입고 이면서 enddate!=null (반납예약완료) 인 물품만 받음

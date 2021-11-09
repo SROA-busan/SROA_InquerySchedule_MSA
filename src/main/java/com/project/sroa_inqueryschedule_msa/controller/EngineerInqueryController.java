@@ -114,8 +114,16 @@ public class EngineerInqueryController {
         List<ResponseWorkOfDateEngineer> res = new ArrayList<>();
         UserInfo userInfo= engineerInqueryService.findEngineerName(id);
         EngineerInfo engineer = engineerInqueryService.findEngineerInfo(userInfo);
+        System.out.println(engineer.getEngineerNum());
 
         List<Schedule> list = engineerInqueryService.findScheduleOfWarehousingProject(engineer.getEngineerNum());
+        System.out.println(list.size());
+        for(Schedule schedule : list){
+            res.add(new ResponseWorkOfDateEngineer(schedule.getProduct().getClassifyName(),
+                    schedule.getStartDate().toString().substring(0,16),
+                    schedule.getStatus()));
+        }
+
         return res;
     }
 

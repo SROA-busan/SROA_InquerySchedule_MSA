@@ -36,7 +36,7 @@ public class EngineerInqueryController {
         UserInfo userInfo= engineerInqueryService.findEngineerName(id);
         EngineerInfo engineer = engineerInqueryService.findEngineerInfo(userInfo);
 
-        String today= LocalDateTime.now().toString().substring(0,9);
+        String today= LocalDateTime.now().toString().substring(0,10);
         List<EngineerBrieflySchedule> list= engineerInqueryService.findEngineerSchedulesDate(engineer.getEngineerNum(), today);
 
         Integer avgScore=engineer.getAvgScore();

@@ -41,8 +41,8 @@ public class EngineerInqueryController {
 
         Integer avgScore=engineer.getAvgScore();
         String centerName= engineer.getServiceCenter().getCenterName();
-
-        return new ResponseLoginEngineer(centerName, avgScore, list);
+        String name=userInfo.getName();
+        return new ResponseLoginEngineer(centerName, avgScore,name, list);
     }
     // 하나의 일정에 대해 상세 조회
     @GetMapping("/schedule/Engineer/SelectOneSchedule/{scheduleNum}")

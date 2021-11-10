@@ -8,11 +8,13 @@ import java.util.List;
 public class ResponseLoginEngineer {
     private String centerName;
     private Integer avgScore;
+    private String name;
     private List<EngineerBrieflySchedule> list;
 
-    public ResponseLoginEngineer(String centerName, Integer avgScore, List<EngineerBrieflySchedule> list) {
+    public ResponseLoginEngineer(String centerName, Integer avgScore, String name, List<EngineerBrieflySchedule> list) {
         this.centerName = centerName;
         this.avgScore = avgScore;
         this.list = list;
+        this.name=name;
     }
 }

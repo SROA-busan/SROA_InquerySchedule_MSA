@@ -36,13 +36,13 @@ public class EngineerInqueryController {
         UserInfo userInfo= engineerInqueryService.findEngineerName(id);
         EngineerInfo engineer = engineerInqueryService.findEngineerInfo(userInfo);
 
-        String today= LocalDateTime.now().toString().substring(0,9);
+        String today= LocalDateTime.now().toString().substring(0,10);
         List<EngineerBrieflySchedule> list= engineerInqueryService.findEngineerSchedulesDate(engineer.getEngineerNum(), today);
 
         Integer avgScore=engineer.getAvgScore();
         String centerName= engineer.getServiceCenter().getCenterName();
-
-        return new ResponseLoginEngineer(centerName, avgScore, list);
+        String name=userInfo.getName();
+        return new ResponseLoginEngineer(centerName, avgScore,name, list);
     }
     // 하나의 일정에 대해 상세 조회
     @GetMapping("/schedule/Engineer/SelectOneSchedule/{scheduleNum}")

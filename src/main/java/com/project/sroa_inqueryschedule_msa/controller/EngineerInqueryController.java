@@ -54,10 +54,10 @@ public class EngineerInqueryController {
             endTime=null;
         }
         else
-            endTime=schedule.getEndDate().toString().substring(0,16);
+            endTime=schedule.getEndDate().toString().replace('T',' ').substring(0,16);
 
         return new EngineerDetailSchedule(scheduleNum,
-                schedule.getStartDate().toString().substring(0,16),
+                schedule.getStartDate().toString().replace('T',' ').substring(0,16),
                 endTime,
                 schedule.getAddress(),
                 schedule.getPhoneNum(),

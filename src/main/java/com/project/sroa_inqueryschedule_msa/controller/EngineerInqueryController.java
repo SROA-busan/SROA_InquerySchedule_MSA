@@ -99,11 +99,11 @@ public class EngineerInqueryController {
 
         for(String key : scheduleOfDateByStartDate.keySet() ){
             Schedule schedule= (Schedule) scheduleOfDateByStartDate.get(key);
-            res.add(new ResponseWorkOfDateEngineer(schedule.getProduct().getClassifyName(), schedule.getStartDate().toString().substring(11, 16), schedule.getStatus()));
+            res.add(new ResponseWorkOfDateEngineer(schedule.getScheduleNum(),schedule.getProduct().getClassifyName(), schedule.getStartDate().toString().substring(11, 16), schedule.getStatus()));
         }
         for(String key : scheduleOfDateByEndDate.keySet()){
             Schedule schedule = (Schedule) scheduleOfDateByEndDate.get(key);
-            res.add(new ResponseWorkOfDateEngineer(schedule.getProduct().getClassifyName(), schedule.getEndDate().toString().substring(11, 16), schedule.getStatus()));
+            res.add(new ResponseWorkOfDateEngineer(schedule.getScheduleNum(),schedule.getProduct().getClassifyName(), schedule.getEndDate().toString().substring(11, 16), schedule.getStatus()));
         }
         return res;
     }
@@ -119,7 +119,8 @@ public class EngineerInqueryController {
         List<Schedule> list = engineerInqueryService.findScheduleOfWarehousingProject(engineer.getEngineerNum());
         System.out.println(list.size());
         for(Schedule schedule : list){
-            res.add(new ResponseWorkOfDateEngineer(schedule.getProduct().getClassifyName(),
+            res.add(new ResponseWorkOfDateEngineer(schedule.getScheduleNum(),
+                    schedule.getProduct().getClassifyName(),
                     schedule.getStartDate().toString().substring(0,16),
                     schedule.getStatus()));
         }

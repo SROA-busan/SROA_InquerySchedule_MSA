@@ -27,6 +27,11 @@ public class EngineerInqueryController {
         this.engineerInqueryService=engineerInqueryService;
     }
 
+    @GetMapping("/inquiry/healthCheck")
+    public boolean healthCheck(){
+        return true;
+    }
+
     //메인페이지
     //엔지니어 정보,당일 일정을 간략히 출력,
     // 클릭시 일정조회 자세히 준비를 위한 데이터
